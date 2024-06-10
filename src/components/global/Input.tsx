@@ -19,8 +19,8 @@ function Input(props: InputProps, ref: LegacyRef<HTMLInputElement>) {
   const { errorMessage, label, ...rest } = props;
 
   const inputClass = errorMessage
-    ? "block w-full rounded-md border-0 py-1.5 pr-10 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6"
-    : "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#171717] sm:text-sm sm:leading-6";
+    ? "block w-full [transition:box-shadow_0.3s,_border_0.3s] rounded-md border-0 py-1.5 pr-10 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6"
+    : "block w-full [transition:box-shadow_0.3s,_border_0.3s] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#171717] sm:text-sm sm:leading-6";
 
   return (
     <div>
