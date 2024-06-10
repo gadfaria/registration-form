@@ -20,7 +20,6 @@ export default function SecondStep() {
 
     try {
       const values = secondStepSchema.parse(dataToValidate);
-      console.log(values);
       data.current = { ...data.current, ...values };
       nextStep();
     } catch (err) {

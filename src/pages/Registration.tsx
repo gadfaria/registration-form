@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import FirstStep from "../components/pages/registration/FirstStep";
 import FourthStep from "../components/pages/registration/FourthStep";
 import SecondStep from "../components/pages/registration/SecondStep";
@@ -22,10 +22,6 @@ export default function Registration() {
     useStepForm(FORM_COMPONENTS);
 
   const data = useRef<Partial<RegistrationFormValues>>({});
-
-  useEffect(() => {
-    console.log("[RENDER] Form");
-  }, []);
 
   return (
     <div className="w-screen h-screen bg-[#ffffff]  sm:p-10 sm:bg-[#0a0a0a]">

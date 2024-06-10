@@ -16,7 +16,7 @@ describe("Registration", () => {
 
     // Second step
     cy.get('input[name="company"]').type("Test Company");
-    const cnpj = Math.floor(Math.random() * 100000000000000);
+    const cnpj = Math.floor(Math.random() * 1000000000000000);
     cy.get('input[name="cnpj"]').type(`${cnpj}`);
     cy.get('input[name="foundationDate"]').type("1997-08-14");
     cy.get('input[name="phone"]').type("11999999999");
