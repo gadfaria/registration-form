@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "cypress/integration/Registration.spec.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
