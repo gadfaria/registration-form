@@ -7,6 +7,7 @@ import PasswordInput from "../../global/PasswordInput";
 import Button from "../../global/Button";
 import { fourthStepSchema } from "../../../utils/schemas";
 import { z } from "zod";
+import { userApi } from "../../../api/userApi";
 
 export default function FourthStep() {
   const { nextStep, data, previousStep } = useContext(RegistrationFormContext);
@@ -15,7 +16,7 @@ export default function FourthStep() {
     console.log("[RENDER] FourthStep");
   }, []);
 
-  function handleSubmit(e: React.FormEvent<EventTarget>) {
+  async function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
@@ -24,6 +25,9 @@ export default function FourthStep() {
     try {
       const values = fourthStepSchema.parse(dataToValidate);
       data.current = { ...data.current, ...values };
+      console.log("1", data.current);
+      console.log("2", values);
+      await userApi.create(data.current);
       nextStep();
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -34,6 +38,11 @@ export default function FourthStep() {
         });
 
         setErrors(mappedErrors);
+        return;
+      }
+
+      if (err instanceof Error) {
+        console.log(err.message);
       }
     }
   }
@@ -49,7 +58,7 @@ export default function FourthStep() {
 
   function InputsByType() {
     let d = data.current as SecondStepFormData;
-    if (d.type === "pessoa-fisica") {
+    if (d.type === "PF") {
       return (
         <Fragment>
           <Input
@@ -107,11 +116,11 @@ export default function FourthStep() {
 
           <Input
             label="Data de abertura"
-            id="openAt"
-            name="openAt"
+            id="foundationDate"
+            name="foundationDate"
             type="date"
-            defaultValue={d.openAt}
-            errorMessage={errors.openAt}
+            defaultValue={d.foundationDate}
+            errorMessage={errors.foundationDate}
             onChange={handleChange}
             max={new Date().toISOString().split("T")[0]}
           />

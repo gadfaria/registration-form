@@ -63,8 +63,8 @@ export default function FirstStep() {
 
       <RadioGroups
         options={[
-          { id: "pessoa-fisica", title: "Pessoa Física" },
-          { id: "pessoa-juridica", title: "Pessoa Jurídica" },
+          { id: "PF", title: "Pessoa Física" },
+          { id: "PJ", title: "Pessoa Jurídica" },
         ]}
         name="type"
         defaultValue={data.current.type}

@@ -54,7 +54,7 @@ export default function SecondStep() {
 
   function InputsByType() {
     let d = data.current as SecondStepFormData;
-    if (d.type === "pessoa-fisica") {
+    if (d.type === "PF") {
       return (
         <Fragment>
           <h1 className="text-2xl font-bold">Pessoa Física</h1>
@@ -115,11 +115,11 @@ export default function SecondStep() {
 
           <Input
             label="Data de abertura"
-            id="openAt"
-            name="openAt"
+            id="foundationDate"
+            name="foundationDate"
             type="date"
-            defaultValue={d.openAt}
-            errorMessage={errors.openAt}
+            defaultValue={d.foundationDate}
+            errorMessage={errors.foundationDate}
             onChange={handleChange}
             max={new Date().toISOString().split("T")[0]}
           />

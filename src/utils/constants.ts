@@ -1,1 +1,1 @@
-export const URL = "https://api.github.com/users";
+export const API_URL = "http://localhost:3000";

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const firstStepSchema = z.object({
   email: z.string().email("E-mail inválido"),
-  type: z.enum(["pessoa-fisica", "pessoa-juridica"], {
+  type: z.enum(["PF", "PJ"], {
     message: "Tipo inválido",
   }),
 });
@@ -34,8 +34,8 @@ const companySchema = z.object({
     .string()
     .refine((cnpj) => cnpj.replace(/\D/g, "").length === 14, "CNPJ inválido")
     .transform((cnpj) => cnpj.replace(/\D/g, "")),
-  openAt: z.string().refine((openAt) => {
-    const date = new Date(openAt);
+    foundationDate: z.string().refine((foundationDate) => {
+    const date = new Date(foundationDate);
     return date instanceof Date && !isNaN(date.getTime());
   }, "Data de abertura inválida"),
   phone: z

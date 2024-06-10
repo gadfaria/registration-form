@@ -2,7 +2,7 @@ export type RegistrationFormValues = {
   email: string;
   phone: string;
   password: string;
-  type: "pessoa-fisica" | "pessoa-juridica";
+  type: "PF" | "PJ";
 } & (
   | {
       name: string;
@@ -12,10 +12,15 @@ export type RegistrationFormValues = {
   | {
       company: string;
       cnpj: string;
-      openAt: string;
+      foundationDate: string;
     }
 );
 
 export type SecondStepFormData =
-  | { type: "pessoa-fisica"; name: string; cpf: string; birthDay: string }
-  | { type: "pessoa-juridica"; company: string; cnpj: string; openAt: string };
+  | { type: "PF"; name: string; cpf: string; birthDay: string }
+  | {
+      type: "PJ";
+      company: string;
+      cnpj: string;
+      foundationDate: string;
+    };
