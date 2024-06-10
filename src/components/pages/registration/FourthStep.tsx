@@ -1,20 +1,18 @@
-import { Fragment, useContext, useEffect, useState } from "react";
-import { RegistrationFormContext } from "../../../utils/contexts";
-import { masks } from "../../../utils/functions";
-import { SecondStepFormData } from "../../../utils/types";
-import Input from "../../global/Input";
-import PasswordInput from "../../global/PasswordInput";
-import Button from "../../global/Button";
-import { fourthStepSchema } from "../../../utils/schemas";
+import { Fragment, useContext, useState } from "react";
 import { z } from "zod";
 import { userApi } from "../../../api/userApi";
+import { RegistrationFormContext } from "../../../utils/contexts";
+import { masks } from "../../../utils/functions";
+import { fourthStepSchema } from "../../../utils/schemas";
+import { SecondStepFormData } from "../../../utils/types";
+import Button from "../../global/Button";
+import Input from "../../global/Input";
+import PasswordInput from "../../global/PasswordInput";
+import Title from "../../global/Title";
 
 export default function FourthStep() {
   const { nextStep, data, previousStep } = useContext(RegistrationFormContext);
-  const [errors, setErrors] = useState<any>({});
-  useEffect(() => {
-    console.log("[RENDER] FourthStep");
-  }, []);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   async function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
@@ -25,13 +23,19 @@ export default function FourthStep() {
     try {
       const values = fourthStepSchema.parse(dataToValidate);
       data.current = { ...data.current, ...values };
-      console.log("1", data.current);
-      console.log("2", values);
-      await userApi.create(data.current);
+      const response = await userApi.create(data.current);
+
+      if (response.code === "DUPLICATED_DATA") {
+        setErrors({ [response.key]: response.message });
+        return;
+      }
+
       nextStep();
     } catch (err) {
       if (err instanceof z.ZodError) {
-        const mappedErrors: any = {};
+        const mappedErrors: {
+          [key: string]: string;
+        } = {};
 
         err.issues.forEach((issue) => {
           mappedErrors[issue.path[0]] = issue.message;
@@ -42,7 +46,7 @@ export default function FourthStep() {
       }
 
       if (err instanceof Error) {
-        console.log(err.message);
+        console.error(err.message);
       }
     }
   }
@@ -50,6 +54,10 @@ export default function FourthStep() {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     data.current = { ...data.current, [name]: value };
+
+    if (masks[name]) {
+      e.target.value = masks[name](value);
+    }
 
     if (errors[name]) {
       setErrors({ ...errors, [name]: "" });
@@ -131,7 +139,7 @@ export default function FourthStep() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold mb-4">Revise suas informações</h1>
+      <Title>Revise suas informações</Title>
       <Input
         id="email"
         name="email"

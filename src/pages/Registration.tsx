@@ -3,6 +3,7 @@ import FirstStep from "../components/pages/registration/FirstStep";
 import FourthStep from "../components/pages/registration/FourthStep";
 import SecondStep from "../components/pages/registration/SecondStep";
 import StepCounter from "../components/pages/registration/StepCounter";
+import Thanks from "../components/pages/registration/Thanks";
 import ThirdStep from "../components/pages/registration/ThirdStep";
 import { useStepForm } from "../hooks/useStepForm";
 import { RegistrationFormContext } from "../utils/contexts";
@@ -13,6 +14,7 @@ const FORM_COMPONENTS = [
   <SecondStep />,
   <ThirdStep />,
   <FourthStep />,
+  <Thanks />,
 ];
 
 export default function Registration() {
@@ -36,7 +38,7 @@ export default function Registration() {
             previousStep,
           }}
         >
-          <StepCounter total={FORM_COMPONENTS.length} />
+          <StepCounter total={FORM_COMPONENTS.length - 1} />
           {Step}
         </RegistrationFormContext.Provider>
       </div>

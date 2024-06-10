@@ -1,19 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { z } from "zod";
-import { firstStepSchema } from "../../../utils/schemas";
 import { RegistrationFormContext } from "../../../utils/contexts";
+import { firstStepSchema } from "../../../utils/schemas";
 import Button from "../../global/Button";
 import Input from "../../global/Input";
 import RadioGroups from "../../global/RadioGroups";
+import Title from "../../global/Title";
 
 export default function FirstStep() {
   let { nextStep, data } = useContext(RegistrationFormContext);
-
-  const [errors, setErrors] = useState<any>({});
-
-  useEffect(() => {
-    console.log("[RENDER] FirstStep");
-  }, []);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
@@ -27,7 +23,7 @@ export default function FirstStep() {
       nextStep();
     } catch (err) {
       if (err instanceof z.ZodError) {
-        const mappedErrors: any = {};
+        const mappedErrors: { [key: string]: string } = {};
 
         err.issues.forEach((issue) => {
           mappedErrors[issue.path[0]] = issue.message;
@@ -49,7 +45,7 @@ export default function FirstStep() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Seja bem-vindo(a)!</h1>
+      <Title>Seja bem-vindo(a)!</Title>
 
       <Input
         id="email"

@@ -1,19 +1,16 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { z } from "zod";
 import { RegistrationFormContext } from "../../../utils/contexts";
 import { masks } from "../../../utils/functions";
 import { secondStepSchema } from "../../../utils/schemas";
+import { SecondStepFormData } from "../../../utils/types";
 import Button from "../../global/Button";
 import Input from "../../global/Input";
-import { SecondStepFormData } from "../../../utils/types";
+import Title from "../../global/Title";
 
 export default function SecondStep() {
   const { nextStep, data, previousStep } = useContext(RegistrationFormContext);
-  const [errors, setErrors] = useState<any>({});
-
-  useEffect(() => {
-    console.log("[RENDER] SecondStep");
-  }, []);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
@@ -28,7 +25,7 @@ export default function SecondStep() {
       nextStep();
     } catch (err) {
       if (err instanceof z.ZodError) {
-        const mappedErrors: any = {};
+        const mappedErrors: { [key: string]: string } = {};
 
         err.issues.forEach((issue) => {
           mappedErrors[issue.path[0]] = issue.message;
@@ -57,7 +54,7 @@ export default function SecondStep() {
     if (d.type === "PF") {
       return (
         <Fragment>
-          <h1 className="text-2xl font-bold">Pessoa Física</h1>
+          <Title>Pessoa Física</Title>
           <Input
             label="Nome"
             id="name"
@@ -91,8 +88,7 @@ export default function SecondStep() {
     } else {
       return (
         <Fragment>
-          <h1 className="text-2xl font-bold">Pessoa Jurídica</h1>
-
+          <Title>Pessoa Jurídica</Title>
           <Input
             label="Razão Social"
             id="company"

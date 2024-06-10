@@ -1,18 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { z } from "zod";
-import { thirdStepSchema } from "../../../utils/schemas";
 import { RegistrationFormContext } from "../../../utils/contexts";
+import { thirdStepSchema } from "../../../utils/schemas";
 import Button from "../../global/Button";
 import PasswordInput from "../../global/PasswordInput";
+import Title from "../../global/Title";
 
 export default function ThirdStep() {
   const { nextStep, data, previousStep } = useContext(RegistrationFormContext);
 
   const [errorMsg, setErrorMsg] = useState("");
-
-  useEffect(() => {
-    console.log("[RENDER] ThirdStep");
-  }, []);
 
   function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
@@ -39,8 +36,8 @@ export default function ThirdStep() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1 className="text-2xl font-bold mb-4">Senha de acesso</h1>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Title>Senha de acesso</Title>
 
       <PasswordInput
         id="password"
@@ -51,7 +48,7 @@ export default function ThirdStep() {
         onChange={handleChange}
       />
 
-      <div className="flex justify-between gap-4 mt-8">
+      <div className="flex justify-between gap-4 mt-4">
         <Button type="button" onClick={previousStep} secondary>
           Voltar
         </Button>
