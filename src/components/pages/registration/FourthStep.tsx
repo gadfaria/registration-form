@@ -13,9 +13,12 @@ import Title from "../../global/Title";
 export default function FourthStep() {
   const { nextStep, data, previousStep } = useContext(RegistrationFormContext);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const { pending } = useFormStatus();
 
   async function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const formData = new FormData(e.target as HTMLFormElement);
     const dataToValidate = Object.fromEntries(formData);
@@ -49,6 +52,7 @@ export default function FourthStep() {
         console.error(err.message);
       }
     }
+    setIsSubmitting(false);
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -176,7 +180,9 @@ export default function FourthStep() {
           Voltar
         </Button>
 
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Continuar
+        </Button>
       </div>
     </form>
   );
