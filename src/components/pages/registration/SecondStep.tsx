@@ -74,7 +74,7 @@ export default function SecondStep() {
             onChange={handleChange}
           />
           <Input
-            label="Data de Nascimento"
+            label="Data de nascimento"
             id="birthDay"
             name="birthDay"
             type="date"
@@ -90,7 +90,7 @@ export default function SecondStep() {
         <Fragment>
           <Title>Pessoa Jurídica</Title>
           <Input
-            label="Razão Social"
+            label="Razão social"
             id="company"
             name="company"
             type="text"
