@@ -1,10 +1,5 @@
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
-import {
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  LegacyRef,
-  forwardRef,
-} from "react";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 interface InputProps
   extends DetailedHTMLProps<
@@ -15,7 +10,7 @@ interface InputProps
   label: string;
 }
 
-function Input(props: InputProps, ref: LegacyRef<HTMLInputElement>) {
+export default function Input(props: InputProps) {
   const { errorMessage, label, ...rest } = props;
 
   const inputClass = errorMessage
@@ -27,7 +22,7 @@ function Input(props: InputProps, ref: LegacyRef<HTMLInputElement>) {
       <label className="block text-sm font-medium leading-6 text-gray-900">
         {label}
         <div className="relative mt-2 rounded-md shadow-sm">
-          <input className={inputClass} ref={ref} {...rest} />
+          <input className={inputClass} {...rest} />
           {errorMessage && (
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
               <ExclamationCircleIcon
@@ -47,5 +42,3 @@ function Input(props: InputProps, ref: LegacyRef<HTMLInputElement>) {
     </div>
   );
 }
-
-export default forwardRef<HTMLInputElement, InputProps>(Input);

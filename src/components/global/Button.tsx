@@ -2,7 +2,6 @@ import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
   PropsWithChildren,
-  forwardRef,
 } from "react";
 
 interface ButtonProps
@@ -13,7 +12,7 @@ interface ButtonProps
   secondary?: boolean;
 }
 
-function Button(props: PropsWithChildren<ButtonProps>) {
+export default function Button(props: PropsWithChildren<ButtonProps>) {
   const { children, secondary, className, disabled, ...rest } = props;
 
   const buttonClass = secondary
@@ -32,5 +31,3 @@ function Button(props: PropsWithChildren<ButtonProps>) {
     </button>
   );
 }
-
-export default forwardRef<HTMLButtonElement, ButtonProps>(Button);
