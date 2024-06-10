@@ -1,30 +1,75 @@
-# React + TypeScript + Vite
+# registration-form
+https://registration.gadfaria.com/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto tem como objetivo criar uma aplicação cliente para registrar usuários, enviando os dados para um servidor Node.js com Express.
 
-Currently, two official plugins are available:
+A aplicação cliente foi construída com ReactJS e Vite, utilizando principalmente suas funcionalidades nativas. Para estilização, foi utilizado o [Tailwind CSS](https://tailwindcss.com/), um framework de CSS de baixo nível. A única biblioteca externa utilizada para lógica foi a [Zod](https://github.com/colinhacks/zod) para validação de dados.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O servidor é simples e consiste em três endpoints:
 
-## Expanding the ESLint configuration
+- `[GET] /registration`: Este endpoint renderiza uma página HTML simples que carrega os componentes do formulário no navegador.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- `[POST] /registration`: Este é o endpoint de registro. Ele é responsável por receber os dados submetidos pelo usuário em formato JSON e responder ao cliente com uma mensagem de sucesso.
 
-- Configure the top-level `parserOptions` property like this:
+- `[GET] /data`: Este endpoint retorna os usuários registrados.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+
+## Primeiros Passos
+Siga as instruções abaixo para obter uma cópia do projeto e executá-lo localmente para fins de desenvolvimento e teste.
+
+### Clonando o Repositório
+Primeiro, clone o repositório para a sua máquina local usando o seguinte comando:
+```bash
+git clone https://github.com/gadfaria/registration-form.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Instalação
+Navegue até o diretório do projeto:
+```bash
+cd registration-form/
+```
+
+Em seguida, instale as dependências do projeto:
+
+```bash
+yarn
+```
+
+### Execução
+Agora você pode iniciar o projeto com o seguinte comando:
+```bash
+yarn start
+```
+
+Após executar este comando, o projeto estará disponível em ```http://localhost:3000```
+
+
+
+## Testes
+Este projeto usa tanto o Jest quanto o Cypress para testes.
+
+### Testes Unitários
+Para os testes unitários, usamos o Jest. Você pode executar os testes unitários com o seguinte comando:
+
+```bash
+yarn test
+```
+Este comando irá executar todos os testes unitários e exibir os resultados no terminal.
+
+### Testes End-to-End
+Para os testes end-to-end, usamos o Cypress. Antes de executar os testes do Cypress, certifique-se de que o aplicativo está em execução em um servidor local. Você pode iniciar o aplicativo com o seguinte comando:
+
+```bash
+yarn start
+```
+
+Depois que o aplicativo estiver em execução, você pode iniciar os testes do Cypress com o seguinte comando:
+```bash
+yarn cypress:open
+```
+Isso abrirá a interface do Cypress, onde você pode executar os testes end-to-end.
+
+
+<h5 align="center">
+  ☕ Code and Coffee
+</h5>
