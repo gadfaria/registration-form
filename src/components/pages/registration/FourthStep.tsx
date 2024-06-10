@@ -51,8 +51,9 @@ export default function FourthStep() {
       if (err instanceof Error) {
         console.error(err.message);
       }
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
