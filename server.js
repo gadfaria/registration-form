@@ -41,7 +41,7 @@ app.get("/registration", (req, res) => {
 
 app.post("/registration", (req, res) => {
   try {
-    const { email, cpf, cnpj } = req.body;
+    const { email, cpf, cnpj } = schema.parse(req.body);
 
     const alreadyRegisteredWithEmail = DATA.find(
       (data) => data.email === email
@@ -77,10 +77,14 @@ app.post("/registration", (req, res) => {
 
     return res.status(201).send("Cadastro realizado com sucesso");
   } catch (error) {
-    console.log(error);
-    return res.status(400).send({
-      message: "Erro ao realizar cadastro",
-    });
+    if (error instanceof z.ZodError) {
+      return res.status(400).send({
+        message: "Dados inválidos",
+        errors: error.errors,
+      });
+    }
+
+    return res.status(500).send("Erro interno");
   }
 });
 
