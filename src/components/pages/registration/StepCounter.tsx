@@ -1,7 +1,4 @@
-import { useContext } from "react";
-
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { RegistrationFormContext } from "../../../utils/contexts";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -9,11 +6,11 @@ function classNames(...classes: string[]) {
 
 interface StepCounterProps {
   total: number;
+  currentStep: number;
 }
 
 export default function StepCounter(props: StepCounterProps) {
-  const { total } = props;
-  const { currentStep } = useContext(RegistrationFormContext);
+  const { total, currentStep } = props;
 
   return (
     <nav aria-label="Progress">

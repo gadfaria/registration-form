@@ -16,11 +16,18 @@ export type RegistrationFormValues = {
     }
 );
 
-export type SecondStepFormData =
-  | { type: "PF"; name: string; cpf: string; birthDay: string }
-  | {
-      type: "PJ";
-      company: string;
-      cnpj: string;
-      foundationDate: string;
-    };
+export type PF = {
+  type: "PF";
+  name: string;
+  cpf: string;
+  birthDay: string;
+};
+
+export type PJ = {
+  type: "PJ";
+  company: string;
+  cnpj: string;
+  foundationDate: string;
+};
+
+export type SecondStepFormData = PF | PJ;

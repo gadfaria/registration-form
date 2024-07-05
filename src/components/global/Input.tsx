@@ -19,7 +19,11 @@ export default function Input(props: InputProps) {
 
   return (
     <div>
-      <label className="block text-sm font-medium leading-6 text-gray-900">
+      <label
+        className={`block text-sm font-medium leading-6 ${
+          errorMessage ? "text-red-600" : "text-gray-900"
+        }`}
+      >
         {label}
         <div className="relative mt-2 rounded-md shadow-sm">
           <input className={inputClass} {...rest} />

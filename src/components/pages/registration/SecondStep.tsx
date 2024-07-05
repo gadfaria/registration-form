@@ -3,7 +3,7 @@ import { z } from "zod";
 import { RegistrationFormContext } from "../../../utils/contexts";
 import { masks } from "../../../utils/functions";
 import { secondStepSchema } from "../../../utils/schemas";
-import { SecondStepFormData } from "../../../utils/types";
+import { PF, PJ } from "../../../utils/types";
 import Button from "../../global/Button";
 import Input from "../../global/Input";
 import Title from "../../global/Title";
@@ -48,10 +48,9 @@ export default function SecondStep() {
     }
   }
 
-  function InputsByType() {
-    let d = data.current as SecondStepFormData;
-    if (d.type === "PF") {
-      return (
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {data.current.type === "PF" && (
         <Fragment>
           <Title>Pessoa Física</Title>
           <Input
@@ -59,7 +58,7 @@ export default function SecondStep() {
             id="name"
             name="name"
             type="text"
-            defaultValue={d.name}
+            defaultValue={(data.current as PF).name}
             errorMessage={errors.name}
             onChange={handleChange}
           />
@@ -68,7 +67,7 @@ export default function SecondStep() {
             id="cpf"
             name="cpf"
             type="text"
-            defaultValue={masks.cpf(d.cpf)}
+            defaultValue={masks.cpf((data.current as PF).cpf)}
             errorMessage={errors.cpf}
             onChange={handleChange}
           />
@@ -77,15 +76,14 @@ export default function SecondStep() {
             id="birthDay"
             name="birthDay"
             type="date"
-            defaultValue={d.birthDay}
+            defaultValue={(data.current as PF).birthDay}
             errorMessage={errors.birthDay}
             onChange={handleChange}
             max={new Date().toISOString().split("T")[0]}
           />
         </Fragment>
-      );
-    } else {
-      return (
+      )}
+      {data.current.type === "PJ" && (
         <Fragment>
           <Title>Pessoa Jurídica</Title>
           <Input
@@ -93,7 +91,7 @@ export default function SecondStep() {
             id="company"
             name="company"
             type="text"
-            defaultValue={d.company}
+            defaultValue={(data.current as PJ).company}
             errorMessage={errors.company}
             onChange={handleChange}
           />
@@ -103,7 +101,7 @@ export default function SecondStep() {
             id="cnpj"
             name="cnpj"
             type="text"
-            defaultValue={masks.cnpj(d.cnpj)}
+            defaultValue={masks.cnpj((data.current as PJ).cnpj)}
             errorMessage={errors.cnpj}
             onChange={handleChange}
           />
@@ -113,20 +111,13 @@ export default function SecondStep() {
             id="foundationDate"
             name="foundationDate"
             type="date"
-            defaultValue={d.foundationDate}
+            defaultValue={(data.current as PJ).foundationDate}
             errorMessage={errors.foundationDate}
             onChange={handleChange}
             max={new Date().toISOString().split("T")[0]}
           />
         </Fragment>
-      );
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <InputsByType />
-
+      )}
       <Input
         label="Telefone"
         id="phone"

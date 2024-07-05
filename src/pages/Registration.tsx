@@ -29,12 +29,14 @@ export default function Registration() {
         <RegistrationFormContext.Provider
           value={{
             data,
-            currentStep,
             nextStep,
             previousStep,
           }}
         >
-          <StepCounter total={FORM_COMPONENTS.length - 1} />
+          <StepCounter
+            total={FORM_COMPONENTS.length - 1}
+            currentStep={currentStep}
+          />
           {Step}
         </RegistrationFormContext.Provider>
       </div>

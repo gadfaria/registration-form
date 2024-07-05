@@ -4,7 +4,7 @@ import { userApi } from "../../../api/userApi";
 import { RegistrationFormContext } from "../../../utils/contexts";
 import { masks } from "../../../utils/functions";
 import { fourthStepSchema } from "../../../utils/schemas";
-import { SecondStepFormData } from "../../../utils/types";
+import { PF, PJ } from "../../../utils/types";
 import Button from "../../global/Button";
 import Input from "../../global/Input";
 import PasswordInput from "../../global/PasswordInput";
@@ -14,7 +14,6 @@ export default function FourthStep() {
   const { nextStep, data, previousStep } = useContext(RegistrationFormContext);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const { pending } = useFormStatus();
 
   async function handleSubmit(e: React.FormEvent<EventTarget>) {
     e.preventDefault();
@@ -69,79 +68,6 @@ export default function FourthStep() {
     }
   }
 
-  function InputsByType() {
-    let d = data.current as SecondStepFormData;
-    if (d.type === "PF") {
-      return (
-        <Fragment>
-          <Input
-            label="Nome"
-            id="name"
-            name="name"
-            type="text"
-            defaultValue={d.name}
-            errorMessage={errors.name}
-            onChange={handleChange}
-          />
-          <Input
-            label="CPF"
-            id="cpf"
-            name="cpf"
-            type="text"
-            defaultValue={masks.cpf(d.cpf)}
-            errorMessage={errors.cpf}
-            onChange={handleChange}
-          />
-          <Input
-            label="Data de nascimento"
-            id="birthDay"
-            name="birthDay"
-            type="date"
-            defaultValue={d.birthDay}
-            errorMessage={errors.birthDay}
-            onChange={handleChange}
-            max={new Date().toISOString().split("T")[0]}
-          />
-        </Fragment>
-      );
-    } else {
-      return (
-        <Fragment>
-          <Input
-            label="Razão social"
-            id="company"
-            name="company"
-            type="text"
-            defaultValue={d.company}
-            errorMessage={errors.company}
-            onChange={handleChange}
-          />
-
-          <Input
-            label="CNPJ"
-            id="cnpj"
-            name="cnpj"
-            type="text"
-            defaultValue={masks.cnpj(d.cnpj)}
-            errorMessage={errors.cnpj}
-            onChange={handleChange}
-          />
-
-          <Input
-            label="Data de abertura"
-            id="foundationDate"
-            name="foundationDate"
-            type="date"
-            defaultValue={d.foundationDate}
-            errorMessage={errors.foundationDate}
-            onChange={handleChange}
-            max={new Date().toISOString().split("T")[0]}
-          />
-        </Fragment>
-      );
-    }
-  }
-
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <Title>Revise suas informações</Title>
@@ -155,7 +81,72 @@ export default function FourthStep() {
         onChange={handleChange}
       />
 
-      <InputsByType />
+      {data.current.type === "PF" && (
+        <Fragment>
+          <Input
+            label="Nome"
+            id="name"
+            name="name"
+            type="text"
+            defaultValue={(data.current as PF).name}
+            errorMessage={errors.name}
+            onChange={handleChange}
+          />
+          <Input
+            label="CPF"
+            id="cpf"
+            name="cpf"
+            type="text"
+            defaultValue={masks.cpf((data.current as PF).cpf)}
+            errorMessage={errors.cpf}
+            onChange={handleChange}
+          />
+          <Input
+            label="Data de nascimento"
+            id="birthDay"
+            name="birthDay"
+            type="date"
+            defaultValue={(data.current as PF).birthDay}
+            errorMessage={errors.birthDay}
+            onChange={handleChange}
+            max={new Date().toISOString().split("T")[0]}
+          />
+        </Fragment>
+      )}
+      {data.current.type === "PJ" && (
+        <Fragment>
+          <Input
+            label="Razão social"
+            id="company"
+            name="company"
+            type="text"
+            defaultValue={(data.current as PJ).company}
+            errorMessage={errors.company}
+            onChange={handleChange}
+          />
+
+          <Input
+            label="CNPJ"
+            id="cnpj"
+            name="cnpj"
+            type="text"
+            defaultValue={masks.cnpj((data.current as PJ).cnpj)}
+            errorMessage={errors.cnpj}
+            onChange={handleChange}
+          />
+
+          <Input
+            label="Data de abertura"
+            id="foundationDate"
+            name="foundationDate"
+            type="date"
+            defaultValue={(data.current as PJ).foundationDate}
+            errorMessage={errors.foundationDate}
+            onChange={handleChange}
+            max={new Date().toISOString().split("T")[0]}
+          />
+        </Fragment>
+      )}
 
       <Input
         label="Telefone"
